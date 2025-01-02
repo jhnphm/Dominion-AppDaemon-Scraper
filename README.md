@@ -1,4 +1,4 @@
-# Dominion Energy Scraper Home Assistant App daemon integration
+# Dominion Energy Scraper Home Assistant AppDaemon integration
 
 ## Instructions
 
