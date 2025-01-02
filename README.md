@@ -1,8 +1,12 @@
 # Dominion Energy Scraper Home Assistant AppDaemon integration
 
+This repo contains appdaemon scripts in order to scrape the excel energy usage stats from Dominion Energy, using Selenium. 
+Note that this data appears delayed by 24H, so it is always backfilled. In order to do this, the Spooky integration is required from HACS
+in order to expose a service call to load historical data.  
+
 ## Instructions
 
-HA needs MQTT enabled and configured. 
+HA needs MQTT enabled and configured, as well as the Spooky integration from HACS to backfill data.
 
 ### Initial appdaemon install
 
