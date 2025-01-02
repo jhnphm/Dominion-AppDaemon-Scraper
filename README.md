@@ -28,3 +28,7 @@ w/ the following names: `sensor.dominion_energy_statistics_power`, `sensor.domin
 `sensor.dominion_energy_statistics_monthly_cost`. 
 
 
+### Screenshots
+
+![Energy Dashboard](doc/energy.png)
+![Graphs](doc/graphs.png)
