@@ -1,0 +1,25 @@
+appdaemon:
+  latitude: 0
+  longitude: 0
+  elevation: 30
+  time_zone: America/New_York
+  plugins:
+    HASS:
+      type: hass
+      namespace: hass
+      ha_url: http://homeassistant:8123
+      token: !secret ha_token
+      cert_verify: True
+    MQTT:
+      type: mqtt
+      namespace: mqtt
+      client_host: mosquitto
+      #client_id: appdaemon
+      client_user: !secret mqtt_user
+      client_password: !secret mqtt_password
+      client_topics: NONE
+
+http:
+  url: http://appdaemon:5050
+admin:
+api:

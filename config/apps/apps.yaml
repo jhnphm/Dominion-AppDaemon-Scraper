@@ -1,0 +1,108 @@
+dominion_scrape:
+  module: globals
+  global: true
+
+dominion_energy:
+  module: dominion_energy
+  class: DominionEnergy
+  dependencies:
+    - dominion_scrape
+  email: !secret dominion_energy_email
+  password: !secret dominion_energy_password 
+  power_entity: sensor.dominion_energy_power
+  energy_entity: sensor.dominion_energy_cumulative_usage
+  monthly_energy_entity: sensor.dominion_energy_monthly_cumulative_usage
+  monthly_cost_entity: sensor.dominion_energy_monthly_cost
+  data_cache: /conf/apps/usage.xlsx
+  tz: America/New_York
+  skip: 0 # Measurements to skip re-inserting
+  tariff_schedule:
+    base_monthly_cost: 7.58
+    thresholds:
+    # in kWh
+      - 0
+      - 800 
+      - 2500
+      - 50000
+    rates: 
+      # # Published rates: dist_riders + gen_riders + trans + fuel + fees + dist + gen + tax
+      # # From https://www.dominionenergy.com/virginia/billing/understand-my-bill
+      # # Only an estimate since rate periods can vary and don't necessarily reset at beginning of
+      # # month
+      #
+      # # dist_riders = 0.000139 - (0.000036) +  0.001452 +  0.003217 + 0.000424 + 0.004168 = 0.009364
+      # # gen_riders = 0.000627 + 0.002348 + 0.001351 + 0.002474 + 0.001287+ 0.000159 + 0.000687 + 0.000266 + 0.001183 + 0.002884 + 0.002884 + 0.004689 = 0.020839
+      # # trans = .0097 +.009687 = 0.019387
+      # # 
+      # # Summer = Jun-Sept inclusive
+      # # >= 0, < 800
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.024986 + 0.029421 + 0.001565 = 0.130508
+      # # >= 800, < 2500
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.017955 + 0.044768 + 0.001565 = 0.138824
+      # # >= 2500, < 50000
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.017955 + 0.044768 + 0.001000 = 0.138259
+      # # >= 50000
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.017955 + 0.044768 + 0.000757 = 0.138016
+      #
+      # # Winter = Oct-May inclusive
+      # # >= 0, < 800
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.024986 + 0.029421 + 0.001565 = 0.130508
+      # # >= 800, < 2500
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.017955 + 0.022706 + 0.001565 = 0.116762
+      # # >= 2500, < 50000
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.017955 + 0.022706 + 0.001000 = 0.116197
+      # # >= 50000
+      # 0.009364 + 0.020839 + 0.019387 + 0.020735 + 0.004211 + 0.017955 + 0.022706 + 0.000757 = 0.115954
+
+      # months, then thresholds
+    - - 0.130508 # Jan
+      - 0.116762
+      - 0.116197
+      - 0.115954
+    - - 0.130508 # Feb
+      - 0.116762
+      - 0.116197
+      - 0.115954
+    - - 0.130508 # Mar
+      - 0.116762
+      - 0.116197
+      - 0.115954
+    - - 0.130508 # Apr
+      - 0.116762
+      - 0.116197
+      - 0.115954
+    - - 0.130508 # May
+      - 0.116762
+      - 0.116197
+      - 0.115954
+    - - 0.130508 # Jun
+      - 0.138824
+      - 0.138259
+      - 0.138016
+    - - 0.130508 # Jul
+      - 0.138824
+      - 0.138259
+      - 0.138016
+    - - 0.130508 # Aug
+      - 0.138824
+      - 0.138259
+      - 0.138016
+    - - 0.130508 # Sep
+      - 0.138824
+      - 0.138259
+      - 0.138016
+    - - 0.130508 # Oct
+      - 0.116762
+      - 0.116197
+      - 0.115954
+    - - 0.130508 # Nov
+      - 0.116762
+      - 0.116197
+      - 0.115954
+    - - 0.130508 # Dec
+      - 0.116762
+      - 0.116197
+      - 0.115954
+
+
+
